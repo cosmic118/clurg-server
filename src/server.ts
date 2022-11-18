@@ -52,12 +52,15 @@ apiRouter.get(`/status`, (req, res) => {
   res.json({ status: `OK` });
 });
 
+let lastseen = 0;
+
 apiRouter.get(`/get-pptx`, (req, res) => {
   if (req.query.secret === process.env.SECRET) {
     if (fs.existsSync(path.join(cwd, `powerpoint.pptx`))) {
       console.log(`a runner has picked up the file`);
       res.sendFile(path.join(cwd, `powerpoint.pptx`));
     } else {
+      lastseen = Date.now();
       res.status(404).json({
         message: `pptx file does not exist`,
       });
@@ -177,7 +180,11 @@ const tokenCheck = (req, res, next) => {
 };
 
 app.get(`/admin`, tokenCheck, (req, res) => {
-  res.render(`admin`);
+  res.render(`admin`, {
+    lastseen: new Date(lastseen).toLocaleString(`en`, {
+      timeZone: `America/Chicago`,
+    }),
+  });
 });
 
 app.post(`/admin`, tokenCheck, upload.single(`pptx`), (req, res) => {

@@ -11,7 +11,8 @@
     <input type="file" id="pptx" name="pptx">
     <button>Submit</button>
   </form>
-
+  <h2>Read this carefully! This is the timestamp when a runner was seen. If that value is too old (more than 10 seconds), it means the runner is not running</h2>
+  <h3><%= lastseen %></h3>
   <img style="width: 720px; height: auto;" src="/api/current-pptx.jpg" alt="Current pptx being loaded...">
 </body>
 </html>
