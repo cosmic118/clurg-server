@@ -78,7 +78,13 @@ apiRouter.post(`/upload-image`, upload.single(`image`), (req, res) => {
       return;
     }
     console.log(`removing powerpoint file and writing image`);
-    fs.unlinkSync(path.join(cwd, `powerpoint.pptx`));
+    try {
+      fs.unlinkSync(path.join(cwd, `powerpoint.pptx`));
+    } catch (e: any) {
+      if (e?.code !== `ENOENT`) {
+        console.error(e);
+      }
+    }
     fs.writeFileSync(path.join(cwd, `image.jpg`), buffer);
     res.status(200).json({ message: `success` });
     return;
