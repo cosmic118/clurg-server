@@ -93,7 +93,7 @@ apiRouter.post(`/upload-image`, upload.single(`image`), (req, res) => {
 const nc = nocache();
 
 apiRouter.get(
-  `/current-pptx`,
+  `/current-pptx.jpg`,
   // This might not be needed as Etags are good enough
   // nc,
   (req, res) => {
