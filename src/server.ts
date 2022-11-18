@@ -3,6 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
+import crypto from "crypto";
 import bodyParser from "body-parser";
 import multer from "multer";
 // @ts-ignore
@@ -74,7 +75,7 @@ apiRouter.get(`/get-pptx`, (req, res) => {
 });
 
 function genetag() {
-  return Math.random().toString(36).substring(2, 15);
+  return crypto.createHash(`sha256`).update(`${Math.random()}`).digest(`hex`);
 }
 
 let imgetag = genetag();
