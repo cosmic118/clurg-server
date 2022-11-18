@@ -73,6 +73,12 @@ apiRouter.get(`/get-pptx`, (req, res) => {
   return;
 });
 
+function genetag() {
+  return Math.random().toString(36).substring(2, 15);
+}
+
+let imgetag = genetag();
+
 apiRouter.post(`/upload-image`, upload.single(`image`), (req, res) => {
   if (req.query.secret === process.env.SECRET) {
     const buffer = req?.file?.buffer;
@@ -89,6 +95,7 @@ apiRouter.post(`/upload-image`, upload.single(`image`), (req, res) => {
       }
     }
     fs.writeFileSync(path.join(cwd, `image.jpg`), buffer);
+    imgetag = genetag();
     res.status(200).json({ message: `success` });
     return;
   }
@@ -106,6 +113,7 @@ apiRouter.get(
   // This might not be needed as Etags are good enough
   // nc,
   (req, res) => {
+    res.set(`etag`, imgetag);
     res.sendFile(`image.jpg`, { root: cwd });
   }
 );
