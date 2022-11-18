@@ -1,0 +1,49 @@
+# Dev files
+?.*
+*.temp.*
+
+powerpoint.pptx
+image.jpg
+
+# Database files
+database.json
+
+# IDE
+/.vscode
+/.idea
+
+# Dependencies
+/node_modules
+
+# Generated js files
+/dist
+
+# Database
+/database
+
+# local storage files
+playerdata.json
+
+# yarn error logs
+yarn-error.log
+
+# Environment varibales
+.env
+.test.env
+!.env*.example
+env/
+
+# Code coverage
+/coverage
+/.nyc_output
+
+*.copy
+
+# User generated files and cache
+.data
+/.cache
+
+mongodump*.gz
+
+# Logs
+*.heapprofile
